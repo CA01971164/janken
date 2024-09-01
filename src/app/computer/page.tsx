@@ -4,84 +4,89 @@ import Link from "next/link";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
-function computer() {
-  // コンピュータが出した数字を画面に表示するコードである
-  const [userChoice, setUserChoice] = useState<string | null>("");
-  const [message, setMessage] = useState<string | null>("");
-
+function Computer() {
+  const [userChoice, setUserChoice] = useState<string | null>(null);
+  const [num, setNum] = useState<number | null>(null);
+  const [message, setMessage] = useState<string | null>(null);
   const jank: string[] = ["/rock.png", "/scissors.png", "/paper.png"];
-  let num: number = Math.floor(Math.random() * 3);
-  let selectionImage = jank[num];
+  const [sendImage, setSendImage] = useState<string | null>(null);
 
-  const DisplayImage: React.FC<{ src: string }> = ({ src }) => {
-    return <Image src={src} alt="computerChoice" width={300} height={300} />;
-  };
+  useEffect(() => {
+    const num = Math.floor(Math.random() * 3);
+    setNum(num);
+  }, [userChoice]);
 
-  // クエリパラメタから、データを取得
+  useEffect(() => {
+    if (num !== null) {
+      setSendImage(jank[num]);
+    }
+  }, [num]);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    let choice: string | null = params.get(`choice`);
+    const choice = params.get("choice");
     setUserChoice(choice);
   }, []);
 
+  useEffect(() => {
+    if (userChoice && num !== null) {
+      determinResult();
+    }
+  }, [userChoice, num]);
+
   const determinResult = () => {
-    if (!userChoice) return;
+    if (!userChoice || num === null) return;
     let message = "";
-    //勝った時のセリフ
     const winner = () => "勝ったよ";
     const loser = () => "負けたよ";
     const hikiwake = () => "引き分け";
 
     if (userChoice === "rock") {
       if (num === 0) {
-        setMessage(hikiwake());
+        message = hikiwake();
       } else if (num === 1) {
-        setMessage(winner());
-      } else if (num == 2) {
-        setMessage(loser());
+        message = winner();
       } else {
-        console.log("エラーである。");
+        message = loser();
       }
     } else if (userChoice === "scissors") {
       if (num === 0) {
-        setMessage(loser());
+        message = loser();
       } else if (num === 1) {
-        setMessage(hikiwake());
-      } else if (num == 2) {
-        setMessage(winner());
+        message = hikiwake();
       } else {
-        console.log("エラーである。");
+        message = winner();
       }
-    } else if (userChoice == "paper") {
+    } else if (userChoice === "paper") {
       if (num === 0) {
-        setMessage(winner());
+        message = winner();
       } else if (num === 1) {
-        setMessage(loser());
-      } else if (num == 2) {
-        setMessage(hikiwake());
+        message = loser();
       } else {
-        console.log("エラーである。");
+        message = hikiwake();
       }
-    } else console.log("すみません！エラーが発生しました。");
+    } else {
+      console.log("すみません！エラーが発生しました。");
+    }
+
+    setMessage(message);
+  };
+
+  const DisplayImage: React.FC<{ src: string }> = ({ src }) => {
+    return <Image src={src} alt="computerChoice" width={300} height={300} />;
   };
 
   const Result: React.FC = () => {
     return <div className="my-32 text-5xl">{message}</div>;
   };
 
-  useEffect(() => {
-    determinResult();
-  }, [userChoice]);
-
   return (
     <>
       {/* 結果を表示する */}
-
       <Result />
       {/* 画像の表示の関数を作る */}
-      <DisplayImage src={selectionImage} />
-      {/* h1では、あなたが勝ったかか負けたかを伝える。 */}
+      {sendImage && <DisplayImage src={sendImage} />}
+      {/* h1では、あなたが勝ったか負けたかを伝える。 */}
       <Link href="/explanation">
         <button>もう一回</button>
       </Link>
@@ -89,4 +94,4 @@ function computer() {
   );
 }
 
-export default computer;
+export default Computer;
