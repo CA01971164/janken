@@ -4,10 +4,10 @@ import "./globals.css";
 export default function Home() {
   return (
     <>
-      <h1>★ジャンケンゲーム★</h1>
+      <h1 className="text-5xl">★ジャンケンゲーム★</h1>
 
       <Link href="/explanation">
-        <button>start</button>
+        <button className="btn ">start</button>
       </Link>
     </>
   );

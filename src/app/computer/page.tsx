@@ -14,7 +14,7 @@ function computer() {
   let selectionImage = jank[num];
 
   const DisplayImage: React.FC<{ src: string }> = ({ src }) => {
-    return <Image src={src} alt="computerChoice" width={50} height={50} />;
+    return <Image src={src} alt="computerChoice" width={300} height={300} />;
   };
 
   // クエリパラメタから、データを取得
@@ -67,7 +67,7 @@ function computer() {
   };
 
   const Result: React.FC = () => {
-    return <div>{message}</div>;
+    return <div className="my-32 text-5xl">{message}</div>;
   };
 
   useEffect(() => {
