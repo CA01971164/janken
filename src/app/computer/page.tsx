@@ -89,7 +89,7 @@ function Computer() {
   const Result: React.FC = () => {
     return (
       <div className="my-32 text-5xl">
-        {userChoice}を選んだ君は、{message}
+        {userChoice}を選んだ君は、<strong>{message}</strong>
       </div>
     );
   };
@@ -109,7 +109,9 @@ function Computer() {
         />
       </div>
 
-      <div className="text-5xl mt-60">君の選んだものは、{userChoice}だ。</div>
+      <div className="text-5xl mt-56">
+        君の選んだものは、<strong>{userChoice}</strong>だ。
+      </div>
     </>
   ) : (
     <>

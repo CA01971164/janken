@@ -2,8 +2,9 @@ import Link from "next/link";
 function Explanation() {
   return (
     <>
-      <h1>ジャンケンゲームのルール</h1>
-      <p>
+      <h1 className="text-6xl">ジャンケンゲームのルール</h1>
+      <p className="text-2xl mt-16">読み飛ばし（推奨）</p>
+      <p className="text-2xl mt-16">
         このゲームは、コンピュータとじゃんけんができるゲームだよ。
         <br />
         ルールは、とても簡単。
@@ -16,7 +17,7 @@ function Explanation() {
       </p>
       <Link href="selection">
         {" "}
-        <button>決定</button>
+        <button className="mb-24">決定</button>
       </Link>
     </>
   );

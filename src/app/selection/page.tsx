@@ -5,8 +5,9 @@ function selection() {
   return (
     <>
       <h1>じゃんけん</h1>
-      <p>
-        下の手の形から、好きなものを選んでね。選ぶと、選んだ手で勝負できるよ。
+      <p className="text-2xl mt-16">
+        下の手の形から、好きなものを選んでね。
+        <strong>選んだ手で勝負できるよ。</strong>
       </p>
       <div className="grid grid-cols-3 gap-2">
         <Link href={{ pathname: "/computer", query: { choice: "グー" } }}>
