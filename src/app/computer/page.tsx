@@ -41,7 +41,7 @@ function Computer() {
     const loser = () => "負けたよ";
     const hikiwake = () => "引き分け";
 
-    if (userChoice === "rock") {
+    if (userChoice === "グー") {
       if (num === 0) {
         message = hikiwake();
       } else if (num === 1) {
@@ -49,7 +49,7 @@ function Computer() {
       } else {
         message = loser();
       }
-    } else if (userChoice === "scissors") {
+    } else if (userChoice === "チョキ") {
       if (num === 0) {
         message = loser();
       } else if (num === 1) {
@@ -57,7 +57,7 @@ function Computer() {
       } else {
         message = winner();
       }
-    } else if (userChoice === "paper") {
+    } else if (userChoice === "パー") {
       if (num === 0) {
         message = winner();
       } else if (num === 1) {
@@ -77,7 +77,11 @@ function Computer() {
   };
 
   const Result: React.FC = () => {
-    return <div className="my-32 text-5xl">{message}</div>;
+    return (
+      <div className="my-32 text-5xl">
+        {userChoice}を選んだ君は、{message}
+      </div>
+    );
   };
 
   return (
