@@ -5,7 +5,7 @@ function computer() {
       <h1 id="result"></h1>
       <p id="computer_image"></p>
       {/* h1では、あなたが勝ったかか負けたかを伝える。 */}
-      <Link href="/">
+      <Link href="/explanation">
         <button>もう一回</button>
       </Link>
     </>
