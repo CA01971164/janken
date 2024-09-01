@@ -2,14 +2,24 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
+import { BallTriangle } from "react-loader-spinner";
 
 function Computer() {
+  const [isLoading, setIsLoading] = useState(true);
   const [userChoice, setUserChoice] = useState<string | null>(null);
   const [num, setNum] = useState<number | null>(null);
   const [message, setMessage] = useState<string | null>(null);
   const jank: string[] = ["/rock.png", "/scissors.png", "/paper.png"];
   const [sendImage, setSendImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const num = Math.floor(Math.random() * 3);
@@ -84,7 +94,24 @@ function Computer() {
     );
   };
 
-  return (
+  return isLoading ? (
+    <>
+      <div className="relative mt-36">
+        <BallTriangle
+          height={300}
+          width={300}
+          radius={5}
+          color="#4fa94d"
+          ariaLabel="ball-triangle-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+        />
+      </div>
+
+      <div className="text-5xl mt-60">君の選んだものは、{userChoice}だ。</div>
+    </>
+  ) : (
     <>
       {/* 結果を表示する */}
       <Result />
