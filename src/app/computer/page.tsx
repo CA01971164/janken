@@ -7,13 +7,14 @@ import React, { useEffect, useState } from "react";
 function computer() {
   // コンピュータが出した数字を画面に表示するコードである
   const [userChoice, setUserChoice] = useState<string | null>("");
+  const [message, setMessage] = useState<string | null>("");
 
   const jank: string[] = ["/rock.png", "/scissors.png", "/paper.png"];
   let num: number = Math.floor(Math.random() * 3);
   let selectionImage = jank[num];
 
   const DisplayImage: React.FC<{ src: string }> = ({ src }) => {
-    return <Image src={src} alt="rock" width={50} height={50} />;
+    return <Image src={src} alt="computerChoice" width={50} height={50} />;
   };
 
   // クエリパラメタから、データを取得
@@ -24,7 +25,8 @@ function computer() {
     setUserChoice(choice);
   }, []);
 
-  const Result: React.FC = () => {
+  const determinResult = () => {
+    if (!userChoice) return;
     let message = "";
     //勝った時のセリフ
     const winner = () => "勝ったよ";
@@ -33,37 +35,44 @@ function computer() {
 
     if (userChoice === "rock") {
       if (num === 0) {
-        message = hikiwake();
+        setMessage(hikiwake());
       } else if (num === 1) {
-        message = winner();
+        setMessage(winner());
       } else if (num == 2) {
-        message = loser();
+        setMessage(loser());
       } else {
         console.log("エラーである。");
       }
     } else if (userChoice === "scissors") {
       if (num === 0) {
-        message = loser();
+        setMessage(loser());
       } else if (num === 1) {
-        message = hikiwake();
+        setMessage(hikiwake());
       } else if (num == 2) {
-        message = winner();
+        setMessage(winner());
       } else {
         console.log("エラーである。");
       }
     } else if (userChoice == "paper") {
       if (num === 0) {
-        message = winner();
+        setMessage(winner());
       } else if (num === 1) {
-        message = loser();
+        setMessage(loser());
       } else if (num == 2) {
-        message = hikiwake();
+        setMessage(hikiwake());
       } else {
         console.log("エラーである。");
       }
     } else console.log("すみません！エラーが発生しました。");
+  };
+
+  const Result: React.FC = () => {
     return <div>{message}</div>;
   };
+
+  useEffect(() => {
+    determinResult();
+  }, [userChoice]);
 
   //じゃんけん結果発表
 
