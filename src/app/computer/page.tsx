@@ -74,8 +74,6 @@ function computer() {
     determinResult();
   }, [userChoice]);
 
-  //じゃんけん結果発表
-
   return (
     <>
       {/* 結果を表示する */}
